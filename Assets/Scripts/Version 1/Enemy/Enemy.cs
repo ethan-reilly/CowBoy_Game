@@ -26,6 +26,9 @@ public class Enemy : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    // Health
+    public int health = 100;
+
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
@@ -104,6 +107,14 @@ public class Enemy : MonoBehaviour
     private void ResetAttack()
     {
         alreadyAttacked = false;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+
+        if (health <= 0)
+            Destroy(gameObject);
     }
 
 

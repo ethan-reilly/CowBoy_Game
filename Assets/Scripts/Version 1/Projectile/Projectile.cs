@@ -9,7 +9,7 @@ public class Projectile : MonoBehaviour
     public GameObject bullet;
 
     // bullet speed
-    public float shootForce, upwardForce;
+    public float shootForce;
 
     // gun stats
     public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
@@ -121,6 +121,7 @@ public class Projectile : MonoBehaviour
             allowInvoke = false;        
         }
 
+
     }
 
     private void ResetShot()
@@ -141,5 +142,10 @@ public class Projectile : MonoBehaviour
         bulletsLeft = magazineSize;
         reloading = false;
     }
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
+    }
+
 }
