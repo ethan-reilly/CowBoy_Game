@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class PlayerBullet : MonoBehaviour
 {
 
     private int bulletStrength = 50;
@@ -12,6 +12,7 @@ public class Bullet : MonoBehaviour
             {
             other.gameObject.GetComponent<Enemy>().TakeDamage(bulletStrength);
             Destroy(gameObject);
+
         }
 
         if(other.gameObject.CompareTag("Ground"))
@@ -19,6 +20,6 @@ public class Bullet : MonoBehaviour
             Debug.Log("Bullet hit ground");
             Destroy(gameObject);
         }
-    
+
     }
 }

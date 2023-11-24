@@ -143,9 +143,6 @@ public class Projectile : MonoBehaviour
         reloading = false;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        
-    }
+
 
 }

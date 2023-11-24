@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour
 
     public LayerMask whatIsGround, whatIsPlayer;
 
+    public GameObject bullet;
+
     // Patrolling
     public Vector3 walkPoint;
     bool walkPointSet;
@@ -21,6 +23,7 @@ public class Enemy : MonoBehaviour
     // Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
+    public Transform attackPoint;
 
     // States
     public float sightRange, attackRange;
@@ -28,6 +31,8 @@ public class Enemy : MonoBehaviour
 
     // Health
     public int health = 100;
+
+    public float shootForce;
 
     private void Awake()
     {
@@ -40,6 +45,8 @@ public class Enemy : MonoBehaviour
         // Check if player is in range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+
+        Vector3 directionWithoutSpread = player.position;
 
         if (!playerInSightRange && !playerInAttackRange) Patrolling();
         if (playerInSightRange && !playerInAttackRange) Chasing();
@@ -95,7 +102,16 @@ public class Enemy : MonoBehaviour
         if(!alreadyAttacked)
         {
             /// ATTACK CODE
-            /// Also need to add nav mesh agent 
+            Vector3 directionWithoutSpread = player.position - attackPoint.position;
+
+
+            // instansiate bullet
+            GameObject currentBullet = Instantiate(bullet, attackPoint.position, transform.rotation);
+
+
+            // adding forces to bullet
+            currentBullet.GetComponent<Rigidbody>().AddForce(directionWithoutSpread * shootForce, ForceMode.Impulse);
+           
 
 
             alreadyAttacked = true;
