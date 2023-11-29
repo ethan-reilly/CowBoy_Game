@@ -5,15 +5,11 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject weaponSelectPanel, attackButton;
-
-    [SerializeField]
-    private TextMeshProUGUI _stateText;
 
     private void Awake()
     {
         GameManager.OnGameChangeState += GameManager_OnGameChangeState;
+
     }
 
     private void OnDestroy()
@@ -23,8 +19,12 @@ public class MenuManager : MonoBehaviour
 
     private void GameManager_OnGameChangeState(GameManager.GameState state)
     {
-        weaponSelectPanel.SetActive(state == GameManager.GameState.MainMenu);
 
+    }
+
+    public void PickWeapon(string weapon)
+    {
+        GameManager.instance.SetWeaponType(weapon);
     }
 
     private void Start()

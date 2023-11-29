@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    /// <summary>
+    /// Need to make the player with the weapon selected from main menu
+    /// </summary>
+    string WeaponType = "";
     private static GameManager _instance;
     public static GameManager instance
     {
@@ -30,6 +34,7 @@ public class GameManager : MonoBehaviour
                 HandleMainMenu();
                 break;
             case GameState.Game:
+                HandleGame();
                 break;
             case GameState.Victory:
                 break;
@@ -42,7 +47,8 @@ public class GameManager : MonoBehaviour
         OnGameChangeState?.Invoke(newState);
     }
 
-        private void Awake()
+
+    private void Awake()
     {
         _instance = this;
     }
@@ -52,8 +58,22 @@ public class GameManager : MonoBehaviour
         updateGameState(GameState.MainMenu);    
     }
 
+    public void SetWeaponType(string wpn)
+    {
+        WeaponType = wpn;
+    }
+    
+    public string GetWeaponType()
+    {
+        return WeaponType;
+    }
 
     private void HandleMainMenu()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void HandleGame()
     {
         throw new NotImplementedException();
     }
