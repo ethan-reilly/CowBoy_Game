@@ -13,9 +13,9 @@ public class Projectile : MonoBehaviour
     private float shootForce = 40;
 
     // gun stats
-    public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
-    public int magazineSize, bulletsPerTap;
-    public bool allowButtonHold = false;
+    private float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
+    private int magazineSize, bulletsPerTap;
+    private bool allowButtonHold = false;
 
     int bulletsLeft, bulletsShot;
 
@@ -38,17 +38,33 @@ public class Projectile : MonoBehaviour
     private void Awake()
     {
         // make sure magazine is full
-        bulletsLeft = magazineSize;
         readyToShoot = true;
 
-        weaponType = GameManager.instance.GetWeaponType();
+        weaponType = GameManager.Instance.GetWeaponType();
         SetWeaponProperties();
-
-        Debug.Log("Proj Weapon type = " + weaponType);
+        bulletsLeft = magazineSize;
     }
 
     private void SetWeaponProperties()
     {
+        if(weaponType == 0)
+        {
+            timeBetweenShooting = 0.75f;
+            spread = 0;
+            reloadTime = 1.1f;
+            timeBetweenShots = 0;
+            magazineSize = 6;
+            bulletsPerTap = 1;
+        }
+        else
+        {
+            timeBetweenShooting = 1.25f;
+            spread = 0;
+            reloadTime = 2f;
+            timeBetweenShots = 0;
+            magazineSize = 8;
+            bulletsPerTap = 1;
+        }
         
     }
 

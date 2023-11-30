@@ -6,20 +6,27 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     /// <summary>
-    /// Need to make the player with the weapon selected from main menu
+    /// Research don't destroy on load
     /// </summary>
-    int WeaponType = 1;
-    private static GameManager _instance;
-    public static GameManager instance
-    {
-        get
-        {
-            if (_instance == null)
-                Debug.LogError("Game manager is null");
+    public int WeaponType = 0;
 
-            return _instance;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Debug.Log("Game Manager not null");
+            Destroy(gameObject);
         }
     }
+
+
+    public static GameManager Instance;
+
 
     public GameState State;
     public static event Action<GameState> OnGameChangeState;
@@ -38,6 +45,7 @@ public class GameManager : MonoBehaviour
             case GameState.Victory:
                 break;
             case GameState.Lose:
+                HandleLose();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -46,10 +54,9 @@ public class GameManager : MonoBehaviour
         OnGameChangeState?.Invoke(newState);
     }
 
-
-    private void Awake()
+    private void HandleLose()
     {
-        _instance = this;
+        throw new NotImplementedException();
     }
 
     void Start()
@@ -70,7 +77,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleGame()
     {
-        LevelManager.Instance.LoadScene("SampleLevel");
+        LevelManager.Instance.LoadScene("SampleScene");
     }
 
     public enum GameState

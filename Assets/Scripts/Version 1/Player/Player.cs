@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     {
         if(health <= 0)
         {
+            GameManager.Instance.updateGameState(GameManager.GameState.Lose);
             Destroy(gameObject);
         }
 
@@ -51,7 +52,7 @@ public class Player : MonoBehaviour
 
     public void SelectWeapon()
     {
-        int wpn = GameManager.instance.GetWeaponType();
+        int wpn = GameManager.Instance.GetWeaponType();
         switch (wpn)
         {
             case 0:
