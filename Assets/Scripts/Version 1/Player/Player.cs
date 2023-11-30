@@ -4,12 +4,18 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/*
+ *  Weapon type 0: Revolver
+ *  Weapon type 1: Rifle
+ */
 public class Player : MonoBehaviour
 {
     public static Player Instance;
-    private int weaponType;
+    public int weaponType;
     private int health = 100;
     public TextMeshProUGUI hpDisplay;
+
+    [SerializeField] GameObject revolver, rifle;
 
     private void Start()
     {
@@ -46,14 +52,16 @@ public class Player : MonoBehaviour
 
     public void SelectWeapon()
     {
-        string wpn = GameManager.instance.GetWeaponType();
+        int wpn = GameManager.instance.GetWeaponType();
         switch (wpn)
         {
-            case "revolver":
-                weaponType = 1;
+            case 0:
+                weaponType = wpn;
+                rifle.SetActive(false);
                 break;
-            case "rifle":
-                weaponType = 2;
+            case 1:
+                weaponType = wpn;
+                revolver.SetActive(true);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(wpn), wpn, null);

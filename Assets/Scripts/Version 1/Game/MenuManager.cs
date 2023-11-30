@@ -22,9 +22,11 @@ public class MenuManager : MonoBehaviour
 
     }
 
-    public void PickWeapon(string weapon)
+    public void PickWeapon(int weapon)
     {
         GameManager.instance.SetWeaponType(weapon);
+
+        GameManager.instance.updateGameState(GameManager.GameState.Game);
     }
 
     private void Start()

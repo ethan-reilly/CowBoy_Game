@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Need to make the player with the weapon selected from main menu
     /// </summary>
-    string WeaponType = "";
+    int WeaponType = 0;
     private static GameManager _instance;
     public static GameManager instance
     {
@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
         switch (newState)
         {
             case GameState.MainMenu:
-                HandleMainMenu();
                 break;
             case GameState.Game:
                 HandleGame();
@@ -58,24 +57,20 @@ public class GameManager : MonoBehaviour
         updateGameState(GameState.MainMenu);    
     }
 
-    public void SetWeaponType(string wpn)
+    public void SetWeaponType(int wpn)
     {
         WeaponType = wpn;
     }
     
-    public string GetWeaponType()
+    public int GetWeaponType()
     {
         return WeaponType;
     }
 
-    private void HandleMainMenu()
-    {
-        throw new NotImplementedException();
-    }
 
     private void HandleGame()
     {
-        throw new NotImplementedException();
+        LevelManager.Instance.LoadScene("SampleLevel");
     }
 
     public enum GameState

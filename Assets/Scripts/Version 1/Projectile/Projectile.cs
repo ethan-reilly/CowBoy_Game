@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -23,10 +24,12 @@ public class Projectile : MonoBehaviour
 
     // reference
     public Camera maincamera;
-    public Transform attackPoint;
+    public Transform attackPointRevolver, attackPointRifle;
 
     // bug fixing
     public bool allowInvoke = true;
+
+    public int weaponType = 0;
 
     // graphics
     //public GameObject muzzleFlash;    //@TODO Muzzle Flash
@@ -41,6 +44,8 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
+        weaponType = GameManager.instance.GetWeaponType();
+
         MyInput();
 
         if(ammoDisplay != null)
@@ -48,6 +53,7 @@ public class Projectile : MonoBehaviour
             ammoDisplay.SetText("AMMO: " + bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
         }
     }
+
 
     private void MyInput()
     {
@@ -98,18 +104,30 @@ public class Projectile : MonoBehaviour
         {
             targetPoint = ray.GetPoint(75);
         }
-        
-        // calculating the direction from attackpoint to targetpoint
-        Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
 
-        // instansiate bullet
-        GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
-        currentBullet.transform.forward = directionWithoutSpread.normalized;
+        Vector3 directionWithoutSpread;
+        if(weaponType == 0){
+            // calculating the direction from attackpoint to targetpoint
+            directionWithoutSpread = targetPoint - attackPointRevolver.position;
 
-        // adding forces to bullet
-        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithoutSpread.normalized * shootForce, ForceMode.Impulse);
-        //currentBullet.GetComponent<Rigidbody>().AddForce(maincamera.transform.up * upwardForce, ForceMode.Impulse);
-        
+            // instansiate bullet
+            GameObject currentBullet = Instantiate(bullet, attackPointRevolver.position, Quaternion.identity);
+            currentBullet.transform.forward = directionWithoutSpread.normalized;
+
+            // adding forces to bullet
+            currentBullet.GetComponent<Rigidbody>().AddForce(directionWithoutSpread.normalized * shootForce, ForceMode.Impulse);
+            //currentBullet.GetComponent<Rigidbody>().AddForce(maincamera.transform.up * upwardForce, ForceMode.Impulse);
+        }
+        else
+        {
+            directionWithoutSpread = targetPoint - attackPointRifle.position;
+
+            GameObject currentBullet = Instantiate(bullet, attackPointRifle.position, Quaternion.identity);
+            currentBullet.transform.forward = directionWithoutSpread.normalized;
+
+            currentBullet.GetComponent<Rigidbody>().AddForce(directionWithoutSpread.normalized * shootForce, ForceMode.Impulse);
+        }
+
 
         bulletsLeft--;
         bulletsShot++;
@@ -146,3 +164,19 @@ public class Projectile : MonoBehaviour
 
 
 }
+
+
+
+// Debug
+/*
+ *  // calculating the direction from attackpoint to targetpoint
+        Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
+
+        // instansiate bullet
+        GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
+        currentBullet.transform.forward = directionWithoutSpread.normalized;
+
+        // adding forces to bullet
+        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithoutSpread.normalized * shootForce, ForceMode.Impulse);
+        //currentBullet.GetComponent<Rigidbody>().AddForce(maincamera.transform.up * upwardForce, ForceMode.Impulse);
+*/
