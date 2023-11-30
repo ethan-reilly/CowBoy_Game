@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
         Instance = this;
 
         GameObject.DontDestroyOnLoad(this.gameObject);
+        SelectWeapon();
     }
 
     private void Update()
@@ -40,8 +41,6 @@ public class Player : MonoBehaviour
         {
             hpDisplay.SetText("HEALTH: " + health);
         }
-
-        Debug.Log("Weapontype = " + weaponType);
 
     }
 

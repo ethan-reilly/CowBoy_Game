@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Need to make the player with the weapon selected from main menu
     /// </summary>
-    int WeaponType = 0;
+    int WeaponType = 1;
     private static GameManager _instance;
     public static GameManager instance
     {

@@ -7,10 +7,10 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     // bullet 
-    public GameObject bullet;
+    public GameObject revolverBullet, rifleBullet;
 
     // bullet speed
-    public float shootForce;
+    private float shootForce = 40;
 
     // gun stats
     public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
@@ -40,12 +40,20 @@ public class Projectile : MonoBehaviour
         // make sure magazine is full
         bulletsLeft = magazineSize;
         readyToShoot = true;
+
+        weaponType = GameManager.instance.GetWeaponType();
+        SetWeaponProperties();
+
+        Debug.Log("Proj Weapon type = " + weaponType);
+    }
+
+    private void SetWeaponProperties()
+    {
+        
     }
 
     private void Update()
     {
-        weaponType = GameManager.instance.GetWeaponType();
-
         MyInput();
 
         if(ammoDisplay != null)
@@ -111,7 +119,7 @@ public class Projectile : MonoBehaviour
             directionWithoutSpread = targetPoint - attackPointRevolver.position;
 
             // instansiate bullet
-            GameObject currentBullet = Instantiate(bullet, attackPointRevolver.position, Quaternion.identity);
+            GameObject currentBullet = Instantiate(revolverBullet, attackPointRevolver.position, Quaternion.identity);
             currentBullet.transform.forward = directionWithoutSpread.normalized;
 
             // adding forces to bullet
@@ -122,7 +130,7 @@ public class Projectile : MonoBehaviour
         {
             directionWithoutSpread = targetPoint - attackPointRifle.position;
 
-            GameObject currentBullet = Instantiate(bullet, attackPointRifle.position, Quaternion.identity);
+            GameObject currentBullet = Instantiate(rifleBullet, attackPointRifle.position, Quaternion.identity);
             currentBullet.transform.forward = directionWithoutSpread.normalized;
 
             currentBullet.GetComponent<Rigidbody>().AddForce(directionWithoutSpread.normalized * shootForce, ForceMode.Impulse);
