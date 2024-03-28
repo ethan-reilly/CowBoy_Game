@@ -8,6 +8,21 @@ using UnityEngine;
  *  Weapon type 0: Revolver
  *  Weapon type 1: Rifle
  */
+
+/// <summary>
+/// Player class
+/// 
+/// Weapon Type: 0 - Revolver, 1 - Rifle
+/// Shoot with left mouse button, shoot function located in projectile script
+/// 
+/// @TODO Need a way for level swap to put player in correct position
+/// Need to make main camera attach to player in new levels
+/// Possibly make GameManager create player when 1st level loaded
+/// Lock rifle behind a requirement
+/// Animations, sounds etc
+/// GameManager auto moves to next level based on enemies killed, maybe change to enemies killed and player in victory zone
+/// Decorate levels with obstacles, cover, etc
+/// </summary>
 public class Player : MonoBehaviour
 {
     public static Player Instance;
@@ -34,7 +49,7 @@ public class Player : MonoBehaviour
     {
         if(health <= 0)
         {
-            GameManager.Instance.updateGameState(GameManager.GameState.Lose);
+            GameManager.Instance.UpdateGameState(GameManager.GameState.Lose);
             Destroy(gameObject);
         }
 
@@ -51,7 +66,7 @@ public class Player : MonoBehaviour
 
         if (health <= 0)
         {
-            GameManager.Instance.updateGameState(GameManager.GameState.Lose);
+            GameManager.Instance.UpdateGameState(GameManager.GameState.Lose);
             Destroy(gameObject);
         }
     }

@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     public List<Enemy> enemies = new List<Enemy>();
 
+    public int levelNum;
+
     private void Awake()
     {
         if (Instance == null)
@@ -35,7 +37,7 @@ public class GameManager : MonoBehaviour
     public GameState State;
     public static event Action<GameState> OnGameChangeState;
 
-    public void updateGameState(GameState newState)
+    public void UpdateGameState(GameState newState)
     {
         State = newState;
 
@@ -58,6 +60,7 @@ public class GameManager : MonoBehaviour
         OnGameChangeState?.Invoke(newState);
     }
 
+
     private void HandleLose()
     {
         throw new NotImplementedException();
@@ -65,7 +68,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        updateGameState(GameState.MainMenu);    
+        UpdateGameState(GameState.MainMenu);
+        levelNum = 0;
+        LevelManager.Instance.LoadScene("MainMenu");
     }
 
     public void SetWeaponType(int wpn)
@@ -81,9 +86,11 @@ public class GameManager : MonoBehaviour
 
     private void NextLevel()
     {
-        LevelManager.Instance.LoadScene("SampleScene");
-
-
+        levelNum++;
+        //if (levelNum == 1)
+          //  levelNum++;
+        
+        LevelManager.Instance.LoadScene(levelNum);
     }
 
     public void AddEnemyToList(Enemy enemy)

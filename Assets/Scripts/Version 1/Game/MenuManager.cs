@@ -26,7 +26,7 @@ public class MenuManager : MonoBehaviour
     {
         GameManager.Instance.SetWeaponType(weapon);
 
-        GameManager.Instance.updateGameState(GameManager.GameState.Game);
+        GameManager.Instance.UpdateGameState(GameManager.GameState.Game);
     }
 
     private void Start()
