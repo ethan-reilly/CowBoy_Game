@@ -30,7 +30,7 @@ public class PlayerBullet : MonoBehaviour
 
         if(other.gameObject.CompareTag("Ground"))
         {
-            Debug.Log("Bullet hit ground");
+            //Debug.Log("Bullet hit ground");
             Destroy(gameObject);
         }
 

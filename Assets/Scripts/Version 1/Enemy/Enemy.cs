@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -34,10 +35,13 @@ public class Enemy : MonoBehaviour
 
     public float shootForce;
 
+    
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+
+        GameManager.Instance.AddEnemyToList(this);
     }
 
     private void Update()
@@ -129,7 +133,10 @@ public class Enemy : MonoBehaviour
         health -= damage;
 
         if (health <= 0)
+        {
+            GameManager.Instance.KillEnemy(this);
             Destroy(gameObject);
+        }
     }
 
 

@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GameManager : MonoBehaviour
 {
-    /// <summary>
-    /// Research don't destroy on load
-    /// </summary>
     public int WeaponType = 0;
+    public bool playerInVictoryZone = false;
+    // Trigger in Player Victory scene
+
+    public List<Enemy> enemies = new List<Enemy>();
 
     private void Awake()
     {
@@ -22,6 +24,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("Game Manager not null");
             Destroy(gameObject);
         }
+
+
     }
 
 
@@ -40,7 +44,7 @@ public class GameManager : MonoBehaviour
             case GameState.MainMenu:
                 break;
             case GameState.Game:
-                HandleGame();
+                NextLevel();
                 break;
             case GameState.Victory:
                 break;
@@ -75,9 +79,30 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void HandleGame()
+    private void NextLevel()
     {
         LevelManager.Instance.LoadScene("SampleScene");
+
+
+    }
+
+    public void AddEnemyToList(Enemy enemy)
+    {
+        enemies.Add(enemy);
+    }
+
+    internal void KillEnemy(Enemy enemy)
+    {
+        Debug.Log("Enemy killed");
+        enemies.Remove(enemy);
+
+        Debug.Log(enemies.Count);
+
+        if (enemies.Count <= 0)
+        {
+            NextLevel();            
+        }
+
     }
 
     public enum GameState

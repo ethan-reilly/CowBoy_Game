@@ -11,19 +11,19 @@ public class EnemyBullet : MonoBehaviour
         {
             other.gameObject.GetComponent<Player>().TakeDamage(bulletStrength);
             Destroy(gameObject);
-            Debug.Log("Bullet hit player");
+            //Debug.Log("Bullet hit player");
         }
 
         if (other.gameObject.CompareTag("Ground"))
         {
-            Debug.Log("Bullet hit ground");
+            //Debug.Log("Bullet hit ground");
             Destroy(gameObject);
         }
         
         if(other.CompareTag("Enemy"))
         {
             Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>());
-            Debug.Log("Bullet hit enemy");
+            //Debug.Log("Bullet hit enemy");
         }
 
     }

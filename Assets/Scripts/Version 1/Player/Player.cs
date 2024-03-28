@@ -48,6 +48,12 @@ public class Player : MonoBehaviour
     public void TakeDamage(int x)
     {
         health -= x;
+
+        if (health <= 0)
+        {
+            GameManager.Instance.updateGameState(GameManager.GameState.Lose);
+            Destroy(gameObject);
+        }
     }
 
     public void SelectWeapon()
@@ -65,6 +71,14 @@ public class Player : MonoBehaviour
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(wpn), wpn, null);
+        }
+    }
+
+    void onTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            TakeDamage(10);
         }
     }
 }
