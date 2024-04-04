@@ -10,7 +10,7 @@ public class CameraMove : MonoBehaviour
     // float camSpeed = 10f;
 
     [SerializeField]
-    GameObject target;
+    Player target;
 
     float xOffset = 0;
     float yOffset = 0;
@@ -20,6 +20,14 @@ public class CameraMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(FindObjectOfType<Player>())
+        {
+            target = FindObjectOfType<Player>();
+        }
+        else
+        {
+            target = null;
+        }
         
     }
 

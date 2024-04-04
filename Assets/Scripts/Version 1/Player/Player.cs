@@ -20,15 +20,20 @@ using UnityEngine;
 /// Possibly make GameManager create player when 1st level loaded
 /// Lock rifle behind a requirement
 /// Animations, sounds etc
-/// GameManager auto moves to next level based on enemies killed, maybe change to enemies killed and player in victory zone
+/// GameManager auto moves to next level based on enemies killed, change to enemies killed and player in victory zone
 /// Decorate levels with obstacles, cover, etc
+/// Reload indicator, circle bar etc
+/// Possibly add coins and skill tree
+/// 
 /// </summary>
 public class Player : MonoBehaviour
 {
     public static Player Instance;
     public int weaponType;
     private int health = 100;
-    public TextMeshProUGUI hpDisplay;
+    private TextMeshProUGUI hpDisplay;
+
+    public Camera mainCamera;
 
     [SerializeField] GameObject revolver, rifle;
 
@@ -43,19 +48,26 @@ public class Player : MonoBehaviour
 
         GameObject.DontDestroyOnLoad(this.gameObject);
         SelectWeapon();
+
+        //hpDisplay = UI.Instance.getHpDisplay();
     }
 
     private void Update()
     {
-        if(health <= 0)
-        {
-            GameManager.Instance.UpdateGameState(GameManager.GameState.Lose);
-            Destroy(gameObject);
-        }
-
         if (hpDisplay != null)
         {
             hpDisplay.SetText("HEALTH: " + health);
+
+            if (health <= 0)
+            {
+                GameManager.Instance.UpdateGameState(GameManager.GameState.Lose);
+
+            }
+        }
+        else
+        {
+            Debug.Log("PEEN");
+            hpDisplay = UI.Instance.getHpDisplay();
         }
 
     }
@@ -63,12 +75,6 @@ public class Player : MonoBehaviour
     public void TakeDamage(int x)
     {
         health -= x;
-
-        if (health <= 0)
-        {
-            GameManager.Instance.UpdateGameState(GameManager.GameState.Lose);
-            Destroy(gameObject);
-        }
     }
 
     public void SelectWeapon()

@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour
 
     // graphics
     //public GameObject muzzleFlash;    //@TODO Muzzle Flash
-    public TextMeshProUGUI ammoDisplay;
+    private TextMeshProUGUI ammoDisplay;
 
     private void Awake()
     {
@@ -43,6 +43,7 @@ public class Projectile : MonoBehaviour
         weaponType = GameManager.Instance.GetWeaponType();
         SetWeaponProperties();
         bulletsLeft = magazineSize;
+
     }
 
     private void SetWeaponProperties()
@@ -72,9 +73,13 @@ public class Projectile : MonoBehaviour
     {
         MyInput();
 
-        if(ammoDisplay != null)
+        if (ammoDisplay != null)
         {
             ammoDisplay.SetText("AMMO: " + bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
+        }
+        else
+        {
+            ammoDisplay = UI.Instance.getAmmoDisplay();
         }
     }
 

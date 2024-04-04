@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Game Manager not null");
+           // Debug.Log("Game Manager not null");
             Destroy(gameObject);
         }
 
@@ -63,6 +63,8 @@ public class GameManager : MonoBehaviour
 
     private void HandleLose()
     {
+        Destroy(FindObjectOfType<Player>().gameObject);
+        //LevelManager.Instance.LoadScene("Lose");
         throw new NotImplementedException();
     }
 
