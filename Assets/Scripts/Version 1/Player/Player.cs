@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Debug.Log("PEEN");
+            Debug.Log("HP Display is null");
             hpDisplay = UI.Instance.getHpDisplay();
         }
 

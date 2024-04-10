@@ -285,8 +285,8 @@ RectTransform:
   m_GameObject: {fileID: 426370161}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2935114, y: 0.2935114, z: 0.2935114}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1510032718}
   m_Father: {fileID: 992372130}
@@ -948,7 +948,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 2.18, y: 1.03}
+  m_AnchoredPosition: {x: 1.62, y: 1.03}
   m_SizeDelta: {x: 1134.5, y: 479.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &992372131
@@ -1510,7 +1510,7 @@ GameObject:
   - component: {fileID: 1510032720}
   - component: {fileID: 1510032719}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: ReloadWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

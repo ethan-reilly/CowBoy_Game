@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Projectile : MonoBehaviour
 {
@@ -26,6 +27,10 @@ public class Projectile : MonoBehaviour
     public Camera maincamera;
     public Transform attackPointRevolver, attackPointRifle;
 
+    // UI
+    private Canvas reloadRadialCanvas;
+    private Image reloadRadialImage;
+
     // bug fixing
     public bool allowInvoke = true;
 
@@ -35,6 +40,7 @@ public class Projectile : MonoBehaviour
     //public GameObject muzzleFlash;    //@TODO Muzzle Flash
     private TextMeshProUGUI ammoDisplay;
 
+
     private void Awake()
     {
         // make sure magazine is full
@@ -43,6 +49,19 @@ public class Projectile : MonoBehaviour
         weaponType = GameManager.Instance.GetWeaponType();
         SetWeaponProperties();
         bulletsLeft = magazineSize;
+
+        GameObject tempObj = GameObject.Find("PlayerReload - Canvas");
+
+        if (tempObj != null)
+        {
+            reloadRadialCanvas = tempObj.GetComponent<Canvas>();
+            reloadRadialCanvas.gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("Canvas not found");
+        }
+
 
     }
 
@@ -81,8 +100,18 @@ public class Projectile : MonoBehaviour
         {
             ammoDisplay = UI.Instance.getAmmoDisplay();
         }
-    }
 
+        if (reloading)
+        {
+           reloadRadialCanvas.gameObject.SetActive(true);
+
+            
+        }
+        else
+        {
+           reloadRadialCanvas.gameObject.SetActive(false);
+        }
+    }
 
     private void MyInput()
     {
