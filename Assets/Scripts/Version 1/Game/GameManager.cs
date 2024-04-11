@@ -7,8 +7,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public int WeaponType = 0;
-    public bool playerInVictoryZone = false;
+    public bool enemiesDefeated = false;
     // Trigger in Player Victory scene
+
+    // Default player pos
+    private Vector3 initialPos = new Vector3(0, 1.0f, 1.4f);
 
     public List<Enemy> enemies = new List<Enemy>();
 
@@ -85,14 +88,21 @@ public class GameManager : MonoBehaviour
         return WeaponType;
     }
 
+    public bool GetEnemiesDefeated()
+    {
+        return enemiesDefeated;
+    }
 
-    private void NextLevel()
+
+    public void NextLevel()
     {
         levelNum++;
         //if (levelNum == 1)
-          //  levelNum++;
-        
+        //  levelNum++;
+        enemiesDefeated = false;
+
         LevelManager.Instance.LoadScene(levelNum);
+        FindObjectOfType<Player>().gameObject.transform.position = initialPos;
     }
 
     public void AddEnemyToList(Enemy enemy)
@@ -109,10 +119,11 @@ public class GameManager : MonoBehaviour
 
         if (enemies.Count <= 0)
         {
-            NextLevel();            
+            enemiesDefeated = true;
         }
 
     }
+
 
     public enum GameState
 {

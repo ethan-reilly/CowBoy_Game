@@ -15,14 +15,12 @@ using UnityEngine;
 /// Weapon Type: 0 - Revolver, 1 - Rifle
 /// Shoot with left mouse button, shoot function located in projectile script
 /// 
-/// @TODO Need a way for level swap to put player in correct position
-/// Need to make main camera attach to player in new levels
+/// @TODO
 /// Possibly make GameManager create player when 1st level loaded
 /// Lock rifle behind a requirement
 /// Animations, sounds etc
 /// GameManager auto moves to next level based on enemies killed, change to enemies killed and player in victory zone
 /// Decorate levels with obstacles, cover, etc
-/// Reload indicator, circle bar etc
 /// Possibly add coins and skill tree
 /// 
 /// </summary>
@@ -66,7 +64,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Debug.Log("HP Display is null");
+            Debug.Log("HP Display not set yet");
             hpDisplay = UI.Instance.getHpDisplay();
         }
 
@@ -102,6 +100,8 @@ public class Player : MonoBehaviour
             TakeDamage(10);
         }
     }
+    
+    
 }
  
 

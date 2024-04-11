@@ -30,6 +30,7 @@ public class Projectile : MonoBehaviour
     // UI
     private Canvas reloadRadialCanvas;
     private Image reloadRadialImage;
+    private float reloadTimeLeft;
 
     // bug fixing
     public bool allowInvoke = true;
@@ -46,6 +47,8 @@ public class Projectile : MonoBehaviour
         // make sure magazine is full
         readyToShoot = true;
 
+        reloadTimeLeft = reloadTime;
+
         weaponType = GameManager.Instance.GetWeaponType();
         SetWeaponProperties();
         bulletsLeft = magazineSize;
@@ -56,6 +59,16 @@ public class Projectile : MonoBehaviour
         {
             reloadRadialCanvas = tempObj.GetComponent<Canvas>();
             reloadRadialCanvas.gameObject.SetActive(false);
+
+            if (reloadRadialCanvas != null)
+            {
+                reloadRadialImage = reloadRadialCanvas.GetComponentInChildren<Image>();
+                Debug.Log("Image found");
+            }
+            else
+            {
+                Debug.Log("Image not found");
+            }
         }
         else
         {
@@ -69,7 +82,7 @@ public class Projectile : MonoBehaviour
     {
         if(weaponType == 0)
         {
-            timeBetweenShooting = 0.75f;
+            timeBetweenShooting = 0.3f;
             spread = 0;
             reloadTime = 1.1f;
             timeBetweenShots = 0;
@@ -78,11 +91,12 @@ public class Projectile : MonoBehaviour
         }
         else
         {
-            timeBetweenShooting = 1.25f;
+            timeBetweenShooting = 0.95f;
             spread = 0;
             reloadTime = 2f;
             timeBetweenShots = 0;
-            magazineSize = 8;
+            //@Debug mag size    magazine size
+            magazineSize = 3;
             bulletsPerTap = 1;
         }
         
@@ -103,13 +117,15 @@ public class Projectile : MonoBehaviour
 
         if (reloading)
         {
-           reloadRadialCanvas.gameObject.SetActive(true);
-
-            
+            reloadRadialCanvas.gameObject.SetActive(true);
+            // Reload Radial decreasing
+            reloadTimeLeft -= Time.deltaTime;
+            reloadRadialImage.fillAmount = reloadTimeLeft / reloadTime;
         }
         else
         {
            reloadRadialCanvas.gameObject.SetActive(false);
+            reloadTimeLeft = reloadTime;
         }
     }
 
@@ -126,7 +142,7 @@ public class Projectile : MonoBehaviour
                 Reload();
             }
             // Auto Reloading
-            if (readyToShoot && shooting && !reloading && bulletsLeft <= 0)
+            if (readyToShoot && !reloading && bulletsLeft <= 0) 
             {
                 Reload();
             }
