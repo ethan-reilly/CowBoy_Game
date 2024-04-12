@@ -91,11 +91,11 @@ public class Projectile : MonoBehaviour
         }
         else
         {
+            //@DEBUG 
             timeBetweenShooting = 0.95f;
             spread = 0;
             reloadTime = 2f;
             timeBetweenShots = 0;
-            //@Debug mag size    magazine size
             magazineSize = 3;
             bulletsPerTap = 1;
         }

@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     // Trigger in Player Victory scene
 
     // Default player pos
-    private Vector3 initialPos = new Vector3(0, 1.0f, 1.4f);
+    private Vector3 initialPos = new Vector3(0, .318f, 1.4f);
 
     public List<Enemy> enemies = new List<Enemy>();
 
@@ -101,8 +101,13 @@ public class GameManager : MonoBehaviour
         //  levelNum++;
         enemiesDefeated = false;
 
+        if (FindObjectOfType<Player>() != null)
+            FindObjectOfType<Player>().deactivateArrowUI();
+
         LevelManager.Instance.LoadScene(levelNum);
-        FindObjectOfType<Player>().gameObject.transform.position = initialPos;
+
+        if (FindObjectOfType<Player>() != null)
+            FindObjectOfType<Player>().gameObject.transform.position = initialPos;
     }
 
     public void AddEnemyToList(Enemy enemy)
@@ -120,6 +125,7 @@ public class GameManager : MonoBehaviour
         if (enemies.Count <= 0)
         {
             enemiesDefeated = true;
+            FindObjectOfType<Player>().activateArrowUI();
         }
 
     }

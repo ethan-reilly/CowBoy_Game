@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /*
  *  Weapon type 0: Revolver
@@ -19,9 +20,11 @@ using UnityEngine;
 /// Possibly make GameManager create player when 1st level loaded
 /// Lock rifle behind a requirement
 /// Animations, sounds etc
-/// GameManager auto moves to next level based on enemies killed, change to enemies killed and player in victory zone
 /// Decorate levels with obstacles, cover, etc
 /// Possibly add coins and skill tree
+/// Enemies spawned through script?
+/// Save to file
+/// Make clear new level has been loaded
 /// 
 /// </summary>
 public class Player : MonoBehaviour
@@ -32,6 +35,10 @@ public class Player : MonoBehaviour
     private TextMeshProUGUI hpDisplay;
 
     public Camera mainCamera;
+
+    // Arrow UI
+    private Canvas arrowUICanvas;
+    private Image arrowUIImage;
 
     [SerializeField] GameObject revolver, rifle;
 
@@ -47,7 +54,29 @@ public class Player : MonoBehaviour
         GameObject.DontDestroyOnLoad(this.gameObject);
         SelectWeapon();
 
-        //hpDisplay = UI.Instance.getHpDisplay();
+        GameObject tempObj = GameObject.Find("Arrow - Toward End");
+
+        if (tempObj != null)
+        {
+            arrowUICanvas = tempObj.GetComponent<Canvas>();
+
+            if (arrowUICanvas != null)
+            {
+                arrowUIImage = arrowUICanvas.GetComponentInChildren<Image>();
+                //Debug.Log("Image found");
+                deactivateArrowUI();
+            }
+            else
+            {
+                //Debug.Log("Image not found");
+                throw new Exception("arrowUICanvas not found");
+            }
+        }
+        else
+        {
+            Debug.Log("Canvas not found");
+        }
+
     }
 
     private void Update()
@@ -68,6 +97,13 @@ public class Player : MonoBehaviour
             hpDisplay = UI.Instance.getHpDisplay();
         }
 
+
+        if (arrowUICanvas.isActiveAndEnabled)
+        {
+            //Debug.Log("Arrow UI active");
+            arrowUIImage.transform.rotation = Quaternion.LookRotation(new Vector3(0, -90, 0));
+
+        }
     }
 
     public void TakeDamage(int x)
@@ -100,8 +136,17 @@ public class Player : MonoBehaviour
             TakeDamage(10);
         }
     }
-    
-    
+
+    public void activateArrowUI()
+    {
+        arrowUICanvas.gameObject.SetActive(true);
+    }
+
+    public void deactivateArrowUI()
+    {
+        arrowUICanvas.gameObject.SetActive(false);
+    }
+
 }
  
 
