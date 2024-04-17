@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public bool enemiesDefeated = false;
     // Trigger in Player Victory scene
 
+    private bool rifleUnlocked = false;
+
     // Default player pos
     private Vector3 initialPos = new Vector3(0, .318f, 1.4f);
 
@@ -128,6 +130,16 @@ public class GameManager : MonoBehaviour
             FindObjectOfType<Player>().activateArrowUI();
         }
 
+    }
+
+    public bool GetRifleUnlocked()
+    {
+        return rifleUnlocked;
+    }
+
+    public void UnlockRifle()
+    {
+        rifleUnlocked = true;
     }
 
 
