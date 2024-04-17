@@ -25,6 +25,7 @@ using UnityEngine.UI;
 /// Enemies spawned through script?
 /// Save to file
 /// Make clear new level has been loaded
+/// Don't destroy player on defeat, disable input and make invisible, deleting messes with bullets
 /// 
 /// </summary>
 public class Player : MonoBehaviour
