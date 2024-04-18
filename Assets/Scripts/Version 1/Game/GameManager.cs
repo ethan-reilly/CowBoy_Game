@@ -22,8 +22,6 @@ public class GameManager : MonoBehaviour
 
     public int levelNum;
 
-    [SerializeField]
-    private bool debugMode;
 
     private void Awake()
     {
@@ -105,7 +103,7 @@ public class GameManager : MonoBehaviour
     public void NextLevel()
     {
         levelNum++;
-        if (debugMode)
+        if (levelNum == 1)
           levelNum++;
         enemiesDefeated = false;
 
