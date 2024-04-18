@@ -36,9 +36,25 @@ public class MenuManager : MonoBehaviour
 
     public void PickWeapon(int weapon)
     {
-        GameManager.Instance.SetWeaponType(weapon);
+        if(weapon ==1)
+        {
+            if (GameManager.Instance.GetRifleUnlocked())
+            {
+                GameManager.Instance.SetWeaponType(weapon);
 
-        GameManager.Instance.UpdateGameState(GameManager.GameState.Game);
+                GameManager.Instance.UpdateGameState(GameManager.GameState.Game);
+            }
+            else
+            {
+                Debug.Log("Rifle is locked");
+            }
+        }
+        else
+        {
+            GameManager.Instance.SetWeaponType(weapon);
+
+            GameManager.Instance.UpdateGameState(GameManager.GameState.Game);
+        }
     }
 
     public void Update()

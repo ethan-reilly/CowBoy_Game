@@ -6,10 +6,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    // Weapon 0 = revolver Weapon 1 = rifle
     public int WeaponType = 0;
-    public bool enemiesDefeated = false;
-    // Trigger in Player Victory scene
 
+    // Once all enemies in list are killed, player victory zone activates
+    public bool enemiesDefeated = false;
+
+    // Is rifle locked?
     private bool rifleUnlocked = false;
 
     // Default player pos
@@ -18,6 +21,9 @@ public class GameManager : MonoBehaviour
     public List<Enemy> enemies = new List<Enemy>();
 
     public int levelNum;
+
+    [SerializeField]
+    private bool debugMode;
 
     private void Awake()
     {
@@ -99,8 +105,8 @@ public class GameManager : MonoBehaviour
     public void NextLevel()
     {
         levelNum++;
-        //if (levelNum == 1)
-        //  levelNum++;
+        if (debugMode)
+          levelNum++;
         enemiesDefeated = false;
 
         if (FindObjectOfType<Player>() != null)

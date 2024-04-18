@@ -26,5 +26,10 @@ public class EnemyBullet : MonoBehaviour
             //Debug.Log("Bullet hit enemy");
         }
 
+        if (other.gameObject.CompareTag("Untagged"))
+        {
+            Destroy(gameObject);
+        }
+
     }
 }

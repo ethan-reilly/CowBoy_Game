@@ -28,11 +28,21 @@ public class PlayerBullet : MonoBehaviour
 
         }
 
-        if(other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground"))
         {
             //Debug.Log("Bullet hit ground");
             Destroy(gameObject);
         }
 
+        if (other.gameObject.CompareTag("Untagged"))
+        {
+            //Debug.Log("Bullet hit untagged object");
+            Destroy(gameObject);
+        }
+
     }
+
+    
+
+    
 }

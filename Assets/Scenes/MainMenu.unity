@@ -2505,5 +2505,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 6642717450748153002, guid: 78d70a5930f9cce46a91eb613d0a7e26, type: 3}
+      propertyPath: debugMode
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78d70a5930f9cce46a91eb613d0a7e26, type: 3}

@@ -26,6 +26,8 @@ using UnityEngine.UI;
 /// Save to file
 /// Make clear new level has been loaded
 /// Don't destroy player on defeat, disable input and make invisible, deleting messes with bullets
+/// Make list of levels, randomly pick one out and remove from list
+/// Boss?
 /// 
 /// </summary>
 public class Player : MonoBehaviour
