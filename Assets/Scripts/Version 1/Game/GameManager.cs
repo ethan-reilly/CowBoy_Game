@@ -73,9 +73,10 @@ public class GameManager : MonoBehaviour
     private void HandleLose()
     {
         Destroy(FindObjectOfType<Player>().gameObject);
+        //Destroy(CompareTag("MainCamera"));
+        LevelManager.Instance.LoadScene("MainMenu");
         //LevelManager.Instance.LoadScene("Lose");
-        throw new NotImplementedException();
-    }
+       }
 
     void Start()
     {
