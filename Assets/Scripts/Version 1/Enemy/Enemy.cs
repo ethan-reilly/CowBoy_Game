@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour
     // Health
     public int health = 100;
 
+
     public float shootForce;
 
     
@@ -40,6 +41,8 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+
+        
 
         GameManager.Instance.AddEnemyToList(this);
     }

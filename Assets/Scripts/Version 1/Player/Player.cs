@@ -43,6 +43,11 @@ public class Player : MonoBehaviour
     private Canvas arrowUICanvas;
     private Image arrowUIImage;
 
+    // Coin UI
+    private Canvas coinUICanvas;
+    private Image coinUIImage;
+
+
     [SerializeField] GameObject revolver, rifle;
 
     private void Start()
@@ -57,6 +62,8 @@ public class Player : MonoBehaviour
         GameObject.DontDestroyOnLoad(this.gameObject);
         SelectWeapon();
 
+
+        /// Setting up Arrow Canvas
         GameObject tempObj = GameObject.Find("Arrow - Toward End");
 
         if (tempObj != null)
@@ -79,6 +86,31 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Canvas not found");
         }
+
+
+        /// Setting up Coin Canvas
+        tempObj = GameObject.Find("CoinCollect - Canvas");
+
+        if (tempObj != null)
+        {
+            coinUICanvas = tempObj.GetComponent<Canvas>();
+
+            if (coinUICanvas != null)
+            {
+                coinUIImage = coinUICanvas.GetComponentInChildren<Image>();
+                deactivateCoinUI();
+            }
+            else
+            {
+                throw new Exception("arrowUICanvas not found");
+            }
+        }
+        else
+        {
+            Debug.Log("Canvas not found");
+        }
+
+
 
     }
 
@@ -148,6 +180,24 @@ public class Player : MonoBehaviour
     public void deactivateArrowUI()
     {
         arrowUICanvas.gameObject.SetActive(false);
+    }
+
+    public void activateCoinUI()
+    {
+
+        coinUICanvas.gameObject.SetActive(true);
+        StartCoroutine(MyCoroutine());
+    }
+
+    public void deactivateCoinUI()
+    {
+        coinUICanvas.gameObject.SetActive(false);
+    }
+
+    IEnumerator MyCoroutine()
+    {
+        yield return new WaitForSeconds(2);
+        deactivateCoinUI();
     }
 
 }

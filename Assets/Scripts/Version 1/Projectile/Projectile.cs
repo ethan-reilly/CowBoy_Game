@@ -63,7 +63,9 @@ public class Projectile : MonoBehaviour
             if (reloadRadialCanvas != null)
             {
                 reloadRadialImage = reloadRadialCanvas.GetComponentInChildren<Image>();
-                Debug.Log("Image found");
+               
+                /// Debug
+                //  Debug.Log("Image found");
             }
             else
             {

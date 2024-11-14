@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -19,6 +20,12 @@ public class GameManager : MonoBehaviour
     private Vector3 initialPos = new Vector3(0, .318f, 1.4f);
 
     public List<Enemy> enemies = new List<Enemy>();
+
+    /// <summary>
+    ///  Need to write and read to file
+    /// </summary>
+    // Coins
+    int totalCoins;
 
     public int levelNum;
 
@@ -103,18 +110,26 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
+
+
         levelNum++;
         if (levelNum == 1)
-          levelNum++;
+            levelNum++;
         enemiesDefeated = false;
 
         if (FindObjectOfType<Player>() != null)
+        {
             FindObjectOfType<Player>().deactivateArrowUI();
+            FindObjectOfType<Player>().deactivateCoinUI();
+        }
 
         LevelManager.Instance.LoadScene(levelNum);
 
+
         if (FindObjectOfType<Player>() != null)
             FindObjectOfType<Player>().gameObject.transform.position = initialPos;
+
+
     }
 
     public void AddEnemyToList(Enemy enemy)
@@ -124,16 +139,20 @@ public class GameManager : MonoBehaviour
 
     internal void KillEnemy(Enemy enemy)
     {
-        Debug.Log("Enemy killed");
+        /// Debug
+       // Debug.Log("Enemy killed");
         enemies.Remove(enemy);
 
-        Debug.Log(enemies.Count);
+        FindObjectOfType<Player>().activateCoinUI();
+
 
         if (enemies.Count <= 0)
         {
             enemiesDefeated = true;
             FindObjectOfType<Player>().activateArrowUI();
         }
+
+        totalCoins += 5;
 
     }
 
